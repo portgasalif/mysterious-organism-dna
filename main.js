@@ -42,5 +42,35 @@ const pAequorFactory = (specimenNum, dna) => {
         `#${this.specimenNum} and #${pAequor.specimenNum} have ${result}% DNA in common`
       );
     },
+    willLikelySurvive() {
+      let counter = 0;
+
+      for (let x = 0; x < this.dna.length; x++) {
+        if (this.dna[x] === 'C' || this.dna[x] === 'G') {
+          counter++;
+        }
+      }
+      let result = (counter / this.dna.length) * 100;
+
+      if (result >= 60) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   };
 };
+
+const survivingSpacimens = [];
+let specimenNum = 1;
+
+while (survivingSpacimens.length < 30) {
+  let organism = pAequorFactory(specimenNum, mockUpStrand());
+
+  if (organism.willLikelySurvive()) {
+    survivingSpacimens.push(organism);
+    specimenNum++;
+  }
+
+}
